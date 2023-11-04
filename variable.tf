@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "key_name" {
   description = " SSH keys to connect to ec2 instance"
-  default     = "halam-eu-east1key"
+  default     = "h-terraform"
 }
 
 variable "instance_type" {
