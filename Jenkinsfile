@@ -22,5 +22,11 @@ pipeline {
 //                  sh ('terraform destroy --auto-approve') 
            }
         }
+
+        stage ("Execute Ansible") {
+            steps {
+                ansiblePlaybook become: true, becomeUser: 'jenkins', installation: 'ansible', inventory: '/ansible/inventory', playbook: '/ansible/main.yml', sudoUser: 'jenkins', vaultTmpPath: ''
+            }
+        }
     }
 }
