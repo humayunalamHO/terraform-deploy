@@ -25,7 +25,7 @@ resource "aws_instance" "ec2_prod" {
 }
 
 resource "aws_instance" "ansible" {
-  ami                         = ami-0e6cf31b6b56b70d7
+  ami                         = "ami-0e6cf31b6b56b70d7"
   instance_type               = var.instance_type
   key_name                    = var.key_name
   security_groups             = ["${aws_security_group.ssh-security-group.id}"]
