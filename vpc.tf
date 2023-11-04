@@ -75,6 +75,7 @@ resource "aws_security_group" "ssh-security-group" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
+ }
 
   egress {
     from_port   = 0
