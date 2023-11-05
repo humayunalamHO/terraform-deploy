@@ -8,6 +8,17 @@ resource "aws_vpc" "vpc" {
     Name = "Test_VPC"
   }
 }
+
+resource "aws_vpc_peering_connection" "vpc" {
+  peer_owner_id = 618488371083
+  peer_vpc_id   = aws_vpc.vpc.id
+  vpc_id        = "vpc-efab468b"
+  auto_accept   = true
+
+  tags = {
+    Name = "VPC Peering between jenkins and Test_VPC"
+  }
+}
 # Create Internet Gateway and Attach it to VPC
 # terraform aws create internet gateway
 resource "aws_internet_gateway" "internet-gateway" {
@@ -35,7 +46,13 @@ resource "aws_route_table" "public-route-table" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet-gateway.id
   }
-  tags = {
+
+  route {
+    cidr_block = "172.31.0.0/16"
+    vpc_peering_connection_id = aws_vpc_peering_connection.vpc.id
+  }
+  
+   tags = {
     Name = "Public Route Table"
   }
 }
@@ -97,26 +114,28 @@ resource "aws_security_group" "ssh-security-group" {
     Name = "SSH Security Group"
   }
 }
+
+
 # Create Security Group for the Web Server
 # terraform aws create security group
-resource "aws_security_group" "webserver-security-group" {
-  name        = "Web Server Security Group"
-  description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SSH access on Port 22 via SSH SG"
-  vpc_id      = aws_vpc.vpc.id
-  ingress {
-    description     = "SSH Access"
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.ssh-security-group.id}"]
-  }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Name = "Web Server Security Group"
-  }
-}
+//resource "aws_security_group" "webserver-security-group" {
+//  name        = "Web Server Security Group"
+//  description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SSH access on Port 22 via SSH SG"
+//  vpc_id      = aws_vpc.vpc.id
+//  ingress {
+//    description     = "SSH Access"
+//    from_port       = 22
+//    to_port         = 22
+//    protocol        = "tcp"
+//    security_groups = ["${aws_security_group.ssh-security-group.id}"]
+//  }
+//  egress {
+//    from_port   = 0
+//    to_port     = 0
+//    protocol    = "-1"
+//    cidr_blocks = ["0.0.0.0/0"]
+//  }
+//  tags = {
+//    Name = "Web Server Security Group"
+//  }
+//}
