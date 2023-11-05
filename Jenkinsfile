@@ -26,7 +26,7 @@ pipeline {
 //        stage ("Execute Ansible") {
 //            steps {
 //                ansiblePlaybook become: true, becomeUser: 'jenkins', installation: 'ansible', inventory: '/ansible/inventory', playbook: '/ansible/main.yml', sudoUser: 'jenkins', vaultTmpPath: ''
-//            }
+
         }
     }
 }
