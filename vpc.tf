@@ -115,30 +115,20 @@ resource "aws_security_group" "ssh-security-group" {
   }
 }
 
-import {
-  to = aws_route_table.centos-jenkins-rt
-  id = "rtb-7d7fb819"
+#resource "aws_route_table" "centos-jenkins-rt" {
+#  vpc_id = "vpc-efab468b"
+#
+#  tags = {
+#  Name = "centos-jenkins-rt"
+#}
+ 
+#}
+
+resource aws_route "centos_jenkins" {
+  route_table_id = 	"rtb-7d7fb819" //"${aws_route_table.centos-jenkins-rt.id}"
+  destination_cidr_block = "10.0.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.vpc.id
 }
-# Create Security Group for the Web Server
-# terraform aws create security group
-//resource "aws_security_group" "webserver-security-group" {
-//  name        = "Web Server Security Group"
-//  description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SSH access on Port 22 via SSH SG"
-//  vpc_id      = aws_vpc.vpc.id
-//  ingress {
-//    description     = "SSH Access"
-//    from_port       = 22
-//    to_port         = 22
-//    protocol        = "tcp"
-//    security_groups = ["${aws_security_group.ssh-security-group.id}"]
-//  }
-//  egress {
-//    from_port   = 0
-//    to_port     = 0
-//    protocol    = "-1"
-//    cidr_blocks = ["0.0.0.0/0"]
-//  }
-//  tags = {
-//    Name = "Web Server Security Group"
-//  }
-//}
+
+
+
