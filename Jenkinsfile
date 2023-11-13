@@ -25,6 +25,12 @@ pipeline {
            }
         }
 
+        stage ("hello") {
+            steps {
+                echo "hello world!"
+            }
+        }
+
 
 //        stage ("Execute Ansible") {
 //            steps {
