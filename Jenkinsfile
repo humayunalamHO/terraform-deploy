@@ -31,6 +31,12 @@ pipeline {
             }
         }
 
+        stage (Ansible deploy) {
+            steps {
+                ansiblePlaybook become: true, credentialsId: 'jenkins-id', disableHostKeyChecking: true, playbook: 'site.yml', inventory: 'inventory.yml'
+            }
+        }
+
 
 //        stage ("Execute Ansible") {
 //            steps {
