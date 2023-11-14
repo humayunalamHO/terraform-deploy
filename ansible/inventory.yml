@@ -1,2 +1,5 @@
 ---
-prod1.hdot.local
+
+webservers:
+  hosts:
+    prod1.hdot.local
