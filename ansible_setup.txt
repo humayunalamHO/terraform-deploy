@@ -1,0 +1,25 @@
+23/09/06540
+
+16504751
+
+//Ansible server
+useradd ansadmin
+add to sudoers file: ansadmin ALL=(ALL)       NOPASSWD: ALL
+
+Enable password-based login
+grep Password /etc/ssh/sshd_config
+
+
+yum install python3 -y
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+python3 -m pip install --user ansible
+
+mkdir -p /etc/ansible
+cd mkdir -p /etc/ansible
+touch hosts
+
+ansible all -m ping
+
+
+add ssh login in Jenkins publish over ssh for ansible and for prod servers
