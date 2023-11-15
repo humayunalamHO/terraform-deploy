@@ -1,0 +1,5 @@
+---
+
+webservers:
+  hosts:
+    prod1.hdot.local
