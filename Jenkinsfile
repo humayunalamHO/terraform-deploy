@@ -9,23 +9,33 @@ pipeline {
           }
         }
         
-        stage ("terraform init") {
+//        stage ("terraform init") {
+//            when ${BRANCH_NAME} == 'main'
+//            steps {
+//                sh ('terraform init') 
+//            }
+//        }
+//        
+//        stage ("terraform Action") {
+//            when ${BRANCH_NAME} == 'main'
+//            steps {
+//                echo "Terraform action is --> \$action"
+//                sh ('terraform apply --auto-approve')
+////                sh ('terraform destroy --auto-approve') 
+//           }
+//        }
+
+        stage ("hello") {
             steps {
-                sh ('terraform init') 
+                echo "hello world!"
             }
         }
-        
-        stage ("terraform Action") {
+
+        stage ("Ansible deploy") {
             steps {
-                echo "Terraform action is --> \$action"
-                sh ('terraform apply --auto-approve')
-//                sh ('terraform destroy --auto-approve') 
-           }
-        }
-
-//        stage ("Execute Ansible") {
-//            steps {
-//                ansiblePlaybook become: true, becomeUser: 'jenkins', installation: 'ansible', inventory: '/ansible/inventory', playbook: '/ansible/main.yml', sudoUser: 'jenkins', vaultTmpPath: ''
-
-        }
-    }
+//                ansiblePlaybook become: true, credentialsId: 'jenkins-ssh', disableHostKeyChecking: true, playbook: 'site.yml', inventory: 'inventory.yml'
+                ansiblePlaybook becomeUser: 'jenkins', credentialsId: 'jenkins-ssh', inventory: 'inventory.yml', playbook: 'main.yml'
+       }    
+     }
+  }
+}
