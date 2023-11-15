@@ -3,7 +3,6 @@
 #- name: Network Getting Started First Playbook
 #  connection: ansible.netcommon.network_cli
 #  gather_facts: false
-  hosts: all
   tasks:
 
 #    - name: Get config for VyOS devices
@@ -15,4 +14,5 @@
 #        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
 
     - name: show hostname
+      hosts: all
       command: hostname
