@@ -1,18 +1,11 @@
 ---
 
-#- name: Network Getting Started First Playbook
-#  connection: ansible.netcommon.network_cli
-#  gather_facts: false
+- name: My first play
+  hosts: all
   tasks:
+   - name: Ping my hosts
+     ansible.builtin.ping:
 
-#    - name: Get config for VyOS devices
-#      vyos.vyos.vyos_facts:
-#        gather_subset: all
-#
-#    - name: Display the config
-#      debug:
-#        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
-
-    - name: show hostname
-      hosts: all
-      command: hostname
+   - name: Print message
+     ansible.builtin.debug:
+       msg: Hello world
