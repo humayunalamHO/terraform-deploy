@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+      maven 'Maven 3.9.5'
+      jdk 'jdk8'
+    }
 
     stages {
         stage('Checkout') {
@@ -25,6 +29,20 @@ pipeline {
 //           }
 //        }
 
+        stage ('initialise') {
+          steps {
+            sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+            '''                    
+          }
+        }
+
+        stage ('Build') {
+          steps {
+            sh 'mvn clean package'
+          }
+        }
         stage ("hello") {
             steps {
                 echo "hello world!"
