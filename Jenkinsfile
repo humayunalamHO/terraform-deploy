@@ -33,9 +33,9 @@ pipeline {
 
         stage ("Ansible deploy") {
             steps {
-//              sh ''
+              sh 'ansible-playbook main.yml -i inventory.yml -u jenkins'
 //                ansiblePlaybook become: true, credentialsId: 'jenkins-ssh', disableHostKeyChecking: true, playbook: 'site.yml', inventory: 'inventory.yml'
-                ansiblePlaybook become: 'true', credentialsId: 'jenkins-ssh', disableHostKeyChecking: true, inventory: 'inventory.yml', playbook: 'main.yml'
+//                ansiblePlaybook become: 'true', credentialsId: 'jenkins-ssh', disableHostKeyChecking: true, inventory: 'inventory.yml', playbook: 'main.yml'
        }    
      }
   }
