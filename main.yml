@@ -5,8 +5,10 @@
   tasks:
    - name: install java
      ansible.builtin.yum:
-     name: java
-     
+       name: java
+     become: yes
+     become_user: root     
+
 
 #   - name: Print message
 #     ansible.builtin.debug:
