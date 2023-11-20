@@ -1,11 +1,13 @@
 ---
 
 - name: My first play
-  hosts: all
+  hosts: webservers
   tasks:
-   - name: Ping my hosts
-     ansible.builtin.ping:
+   - name: install java
+     ansible.builtin.yum:
+     name: java
+     
 
-   - name: Print message
-     ansible.builtin.debug:
-       msg: Hello world
+#   - name: Print message
+#     ansible.builtin.debug:
+#       msg: Hello world
