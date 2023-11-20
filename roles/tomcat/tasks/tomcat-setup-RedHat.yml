@@ -1,7 +1,8 @@
-#- name: Add EPEL repository
-#  yum:
-#    name: epel-release
-#    state: present
+- name: Add EPEL repository
+  ansible.builtin.command: sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
+
+- name: EPEL2
+  ansible.builtin.command: sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 
 - name: Install basic packages
   package:
