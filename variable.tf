@@ -1,11 +1,11 @@
 variable "aws_region" {
   description = "The AWS region to create things in."
-  default     = "us-west-2"
+  default     = "us-east-1"
 }
 
 variable "key_name" {
   description = " SSH keys to connect to ec2 instance"
-  default     = "h-terraform"
+  default     = "MyCliKeyPair"
 }
 
 variable "instance_type" {
@@ -15,7 +15,7 @@ variable "instance_type" {
 
 variable "security_group" {
   description = "Name of security group"
-  default     = "security_jenkins_grp"
+  default     = "devops"
 }
 
 variable "tag_name" {
@@ -23,8 +23,8 @@ variable "tag_name" {
   default     = "my-Terraform_ec2-instance"
 }
 variable "ami_id" {
-  description = "AMI for Ubuntu Ec2 instance"
-  default     = "ami-00aa0673b34e3c150"
+  description = "AMI for Redhat Ec2 instance"
+  default     = "ami-05a5f6298acdb05b6"
 }
 
 

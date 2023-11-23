@@ -5,18 +5,18 @@ resource "aws_vpc" "vpc" {
   instance_tenancy     = "default"
   enable_dns_hostnames = true
   tags = {
-    Name = "Test_VPC"
+    Name = "Devops_VPC"
   }
 }
 
 resource "aws_vpc_peering_connection" "vpc" {
-  peer_owner_id = 618488371083
+  peer_owner_id = 946334840080
   peer_vpc_id   = aws_vpc.vpc.id
-  vpc_id        = "vpc-efab468b"
+  vpc_id        = "vpc-a3e049de"
   auto_accept   = true
 
   tags = {
-    Name = "VPC Peering between jenkins and Test_VPC"
+    Name = "VPC Peering between jenkins and Devops_VPC"
   }
 }
 # Create Internet Gateway and Attach it to VPC
@@ -24,7 +24,7 @@ resource "aws_vpc_peering_connection" "vpc" {
 resource "aws_internet_gateway" "internet-gateway" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "internet_gateway"
+    Name = "Devops-ig"
   }
 }
 # Create Public Subnet 1
@@ -35,7 +35,7 @@ resource "aws_subnet" "public-subnet-1" {
   availability_zone       = "us-west-2a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "public-subnet-1"
+    Name = "Devops-public-subnet-1"
   }
 }
 # Create Route Table and Add Public Route
@@ -53,7 +53,7 @@ resource "aws_route_table" "public-route-table" {
   }
   
    tags = {
-    Name = "Public Route Table"
+    Name = "Devops-Public Route Table"
   }
 }
 # Associate Public Subnet 1 to "Public Route Table"
@@ -70,7 +70,7 @@ resource "aws_subnet" "private-subnet-1" {
   availability_zone       = "us-west-2a"
   map_public_ip_on_launch = false
   tags = {
-    Name = "private-subnet-1"
+    Name = "Devops-private-subnet-1"
   }
 }
 
@@ -119,18 +119,18 @@ resource "aws_security_group" "ssh-security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "SSH Security Group"
+    Name = "Devops-SSH Security Group"
   }
 }
 
 resource aws_route "centos_jenkins" {
-  route_table_id = 	"rtb-7d7fb819" //"${aws_route_table.centos-jenkins-rt.id}"
+  route_table_id = 	"rtb-0e82b770" //"${aws_route_table.centos-jenkins-rt.id}"
   destination_cidr_block = "10.0.0.0/16"
   vpc_peering_connection_id = aws_vpc_peering_connection.vpc.id
 }
 
-resource "aws_route53_zone" "hdot" {
-  name = "hdot.local"
+resource "aws_route53_zone" "devops" {
+  name = "devops.local"
   tags = {
     Environment = "prod"
   }  
@@ -139,22 +139,22 @@ resource "aws_route53_zone" "hdot" {
     vpc_id = aws_vpc.vpc.id
   }
   vpc {
-    vpc_id = "vpc-efab468b"
+    vpc_id = "vpc-a3e049de"
   }
 }
 
 resource "aws_route53_record" "prod1" {
-  zone_id = aws_route53_zone.hdot.zone_id
-  name    = "prod1.hdot.local"
+  zone_id = aws_route53_zone.devops.zone_id
+  name    = "prod1.devops.local"
   type    = "A"
   ttl     = 300
   records = ["10.0.0.51"]
 }
 
-resource "aws_route53_record" "ansible001" {
-  zone_id = aws_route53_zone.hdot.zone_id
-  name    = "ansible001.hdot.local"
-  type    = "A"
-  ttl     = 300
-  records = ["10.0.0.52"]
-}
+//resource "aws_route53_record" "ansible001" {
+//  zone_id = aws_route53_zone.devops.zone_id
+//  name    = "ansible001.devops.local"
+//  type    = "A"
+//  ttl     = 300
+//  records = ["10.0.0.52"]
+//}
