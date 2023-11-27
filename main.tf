@@ -29,7 +29,7 @@ resource "aws_instance" "ec2_prod" {
     create_before_destroy = true
   }
   tags = {
-    "Name" = "EC2-PROD"
+    "Name" = "EC2-PRODZZ"
   }
 
   user_data = <<-EOF
