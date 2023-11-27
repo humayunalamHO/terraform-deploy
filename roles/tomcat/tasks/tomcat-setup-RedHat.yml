@@ -2,7 +2,7 @@
 #  ansible.builtin.command: sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
 
 - name: EPEL2
-#  ansible.builtin.command: sudo amazon-linux-extras install epel -y
+  ansible.builtin.command: sudo amazon-linux-extras install epel -y
 
 - name: Install basic packages
   package:
