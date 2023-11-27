@@ -2,4 +2,4 @@
 
 webservers:
   hosts:
-    prod1.hdot.local
+    prod1.devops.local
