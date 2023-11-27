@@ -64,20 +64,20 @@
     enabled: yes
   when: ansible_service_mgr == "systemd"
 
-- name: Start and enable firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: yes
-  when: ansible_service_mgr == "systemd"
-
-- name: Open tomcat port on the firewall
-  firewalld:
-    port: 8080/tcp
-    permanent: true
-    state: enabled
-    immediate: yes
-  when: ansible_service_mgr == "systemd"
+#- name: Start and enable firewalld
+#  service:
+#    name: firewalld
+#    state: started
+#    enabled: yes
+#  when: ansible_service_mgr == "systemd"
+#
+#- name: Open tomcat port on the firewall
+#  firewalld:
+#    port: 8080/tcp
+#    permanent: true
+#    state: enabled
+#    immediate: yes
+#  when: ansible_service_mgr == "systemd"
 
 - name: Set UI access credentials
   template:
