@@ -78,6 +78,6 @@
     owner: tomcat
     group: tomcat
     mode: '0664'
-  with_fileglob: "target/*.war"
+  with_fileglob: "../target/*.war"
 
   
