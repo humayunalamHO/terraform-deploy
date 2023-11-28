@@ -16,21 +16,21 @@ pipeline {
           echo "hello"
         }
 
-#        stage ("terraform init") {
-#            when ${BRANCH_NAME} == 'main'
-#            steps {
-#                sh ('terraform init') 
-#            }
-#        }
-#        
-#        stage ("terraform Action") {
-#            when ${BRANCH_NAME} == 'main'
-#            steps {
-#                echo "Terraform action is --> \$action"
-#                sh ('terraform apply --auto-approve')
-#////                sh ('terraform destroy --auto-approve') 
-#           }
-#        }
+//        stage ("terraform init") {
+//            when ${BRANCH_NAME} == 'main'
+//            steps {
+//                sh ('terraform init') 
+//            }
+//        }
+//        
+//        stage ("terraform Action") {
+//            when ${BRANCH_NAME} == 'main'
+//            steps {
+//                echo "Terraform action is --> \$action"
+//                sh ('terraform apply --auto-approve')
+//////                sh ('terraform destroy --auto-approve') 
+//           }
+//        }
 
         stage ('initialise') {
           steps {
