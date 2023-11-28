@@ -1,11 +1,3 @@
-#- name: Add EPEL repository
-#  ansible.builtin.command: sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
-
-#- name: EPEL2
-#  ansible.builtin.command: sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
-
-
-
 - name: Install basic packages
   package:
     name: ['vim','bash-completion','tmux','tree','htop','wget','unzip','git']
@@ -64,21 +56,6 @@
     enabled: yes
   when: ansible_service_mgr == "systemd"
 
-#- name: Start and enable firewalld
-#  service:
-#    name: firewalld
-#    state: started
-#    enabled: yes
-#  when: ansible_service_mgr == "systemd"
-#
-#- name: Open tomcat port on the firewall
-#  firewalld:
-#    port: 8080/tcp
-#    permanent: true
-#    state: enabled
-#    immediate: yes
-#  when: ansible_service_mgr == "systemd"
-
 - name: Set UI access credentials
   template:
     src: tomcat-users.xml.j2
@@ -93,3 +70,14 @@
     - /usr/share/tomcat/webapps/host-manager/META-INF/context.xml
     - /usr/share/tomcat/webapps/manager/META-INF/context.xml
   notify: restart tomcat
+
+- name: Deploy the new WAR file to target servers
+  copy: 
+    src: "{{ item }}"
+    dest: /usr/share/tomcat/webapps
+    owner: tomcat
+    group: tomcat
+    mode: '0664'
+  with_fileglob: "target/*.war"
+
+  
