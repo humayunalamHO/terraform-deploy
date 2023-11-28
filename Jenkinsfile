@@ -43,11 +43,6 @@ pipeline {
             sh 'mvn clean package'
           }
         }
-        stage ("hello") {
-            steps {
-                echo "hello world!"
-            }
-        }
 
         stage ("Ansible deploy") {
             steps {
