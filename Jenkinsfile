@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-      terraform 'terraform'
+      maven 'maven'
     }
 
     stages {
