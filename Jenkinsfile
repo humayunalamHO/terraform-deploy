@@ -19,7 +19,7 @@ pipeline {
         }
 
         stage ("terraform init") {
-            when ${BRANCH_NAME} == 'main'
+//            when ${BRANCH_NAME} == 'main'
             steps {
                 sh 'terraform init' 
             }
