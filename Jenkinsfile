@@ -26,7 +26,7 @@ pipeline {
         }
         
         stage ("terraform Action") {
-            when ${BRANCH_NAME} == 'main'
+//            when ${BRANCH_NAME} == 'main'
             steps {
                 echo "Terraform action is --> \$action"
                 sh 'terraform apply --auto-approve'
