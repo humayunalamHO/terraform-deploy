@@ -21,7 +21,7 @@ pipeline {
         stage ("terraform init") {
             when ${BRANCH_NAME} == 'main'
             steps {
-                sh ('terraform init') 
+                sh 'terraform init' 
             }
         }
 //        
