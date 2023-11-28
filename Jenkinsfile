@@ -12,12 +12,6 @@ pipeline {
           }
         }
         
-        stage ("test") {
-          steps {
-            echo "hello"
-          }
-        }
-
         stage ("terraform init") {
 //            when ${BRANCH_NAME} == 'main'
             steps {
