@@ -34,25 +34,25 @@ pipeline {
 //           }
 //        }
 
-        stage ('initialise') {
-          steps {
-            sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-            '''                    
-          }
-        }
-
-        stage ('Build') {
-          steps {
-            sh 'mvn clean package'
-          }
-        }
-
-        stage ("Ansible deploy") {
-            steps {
-              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
-       }    
-     }
+//        stage ('initialise') {
+//          steps {
+//            sh '''
+//                    echo "PATH = ${PATH}"
+//                    echo "M2_HOME = ${M2_HOME}"
+//            '''                    
+//          }
+//        }
+//
+//        stage ('Build') {
+//          steps {
+//            sh 'mvn clean package'
+//          }
+//        }
+//
+//        stage ("Ansible deploy") {
+//            steps {
+//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
+//       }    
+//     }
   }
 }
