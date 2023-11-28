@@ -13,7 +13,9 @@ pipeline {
         }
         
         stage ("test") {
-          echo "hello"
+          steps {
+            echo "hello"
+          }
         }
 
 //        stage ("terraform init") {
