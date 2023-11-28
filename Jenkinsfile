@@ -47,8 +47,6 @@ pipeline {
         stage ("Ansible deploy") {
             steps {
               sh 'ansible-playbook tomcat-setup.yml -i inventory.yml -u jenkins'
-//                ansiblePlaybook become: true, credentialsId: 'jenkins-ssh', disableHostKeyChecking: true, playbook: 'site.yml', inventory: 'inventory.yml'
-//                ansiblePlaybook become: 'true', credentialsId: 'jenkins-ssh', disableHostKeyChecking: true, inventory: 'inventory.yml', playbook: 'main.yml'
        }    
      }
   }
