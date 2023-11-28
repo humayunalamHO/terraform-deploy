@@ -24,35 +24,35 @@ pipeline {
                 sh 'terraform init' 
             }
         }
-//        
-//        stage ("terraform Action") {
-//            when ${BRANCH_NAME} == 'main'
-//            steps {
-//                echo "Terraform action is --> \$action"
-//                sh ('terraform apply --auto-approve')
-//////                sh ('terraform destroy --auto-approve') 
-//           }
-//        }
+        
+        stage ("terraform Action") {
+            when ${BRANCH_NAME} == 'main'
+            steps {
+                echo "Terraform action is --> \$action"
+                sh ('terraform apply --auto-approve')
+//                sh ('terraform destroy --auto-approve') 
+           }
+        }
 
-//        stage ('initialise') {
-//          steps {
-//            sh '''
-//                    echo "PATH = ${PATH}"
-//                    echo "M2_HOME = ${M2_HOME}"
-//            '''                    
-//          }
-//        }
-//
-//        stage ('Build') {
-//          steps {
-//            sh 'mvn clean package'
-//          }
-//        }
-//
-//        stage ("Ansible deploy") {
-//            steps {
-//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
-//       }    
-//     }
+        stage ('initialise') {
+          steps {
+            sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+            '''                    
+          }
+        }
+
+        stage ('Build') {
+          steps {
+            sh 'mvn clean package'
+          }
+        }
+
+        stage ("Ansible deploy") {
+            steps {
+              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
+       }    
+     }
   }
 }
