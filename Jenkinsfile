@@ -18,12 +18,12 @@ pipeline {
           }
         }
 
-//        stage ("terraform init") {
-//            when ${BRANCH_NAME} == 'main'
-//            steps {
-//                sh ('terraform init') 
-//            }
-//        }
+        stage ("terraform init") {
+            when ${BRANCH_NAME} == 'main'
+            steps {
+                sh ('terraform init') 
+            }
+        }
 //        
 //        stage ("terraform Action") {
 //            when ${BRANCH_NAME} == 'main'
