@@ -2,7 +2,6 @@ pipeline {
     agent any
     tools {
       maven 'maven'
-      terraform 'terraform'
     }
 
     stages {
@@ -16,7 +15,7 @@ pipeline {
         stage ("test") {
           echo "hello"
         }
-        
+
         stage ("terraform init") {
             when ${BRANCH_NAME} == 'main'
             steps {
