@@ -43,10 +43,10 @@ pipeline {
           }
         }
 
-//        stage ("Ansible deploy") {
-//            steps {
-//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
-//       }    
-//     }
+        stage ("Ansible deploy") {
+            steps {
+              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
+       }    
+     }
   }
 }
