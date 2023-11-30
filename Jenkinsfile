@@ -11,22 +11,6 @@ pipeline {
 
           }
         }
-        
-        stage ("terraform init") {
-//            when ${BRANCH_NAME} == 'main'
-            steps {
-                sh 'terraform init' 
-            }
-        }
-        
-        stage ("terraform Action") {
-//            when ${BRANCH_NAME} == 'main'
-            steps {
-                echo "Terraform action is --> \$action"
-                sh 'terraform ${action} --auto-approve'
-//                sh ('terraform destroy --auto-approve') 
-           }
-        }
 
         stage ('initialise') {
           steps {
@@ -41,6 +25,21 @@ pipeline {
           steps {
             sh 'mvn clean package'
           }
+        }        
+        stage ("terraform init") {
+//            when ${BRANCH_NAME} == 'main'
+            steps {
+                sh 'terraform init' 
+            }
+        }
+        
+        stage ("terraform Action") {
+//            when ${BRANCH_NAME} == 'main'
+            steps {
+                echo "Terraform action is --> \$action"
+                sh 'terraform ${action} --auto-approve'
+//                sh ('terraform destroy --auto-approve') 
+           }
         }
 
         stage ("Ansible deploy") {
