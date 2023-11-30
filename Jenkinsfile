@@ -4,8 +4,11 @@ pipeline {
       maven 'maven'
     }
 
+//    environment {
+//    DEPLOY = 'YES'
+//}
     parameters {
-      choice choices: ['apply', 'destroy'], description: 'Apply?', name: 'TERRAFOM-BUILD'
+      choice choices: ['apply', 'destroy'], description: 'Humayun?', name: 'TERRAFOM-BUILD'
     }
 
     stages {
