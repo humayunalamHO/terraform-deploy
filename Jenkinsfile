@@ -4,6 +4,10 @@ pipeline {
       maven 'maven'
     }
 
+    parameters {
+      choice choices: ['apply', 'destroy'], description: 'Apply?', name: 'TERRAFOM-BUILD'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -42,10 +46,19 @@ pipeline {
            }
         }
 
-        stage ("Ansible deploy") {
-            steps {
-              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
-       }    
-     }
+//        stage ("Ansible deploy") {
+//            steps {
+//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
+//       }    
+//     }
+
+        stage ("ansible test") {
+          when {
+            expression { params.TERRAFOM-BUILD == 'apply' }
+          }
+          steps {
+            sh 'ansible-playbook first_playbook.yml -i ansible/inventory.yml -u jenkins'
+          }
+        }
   }
 }
