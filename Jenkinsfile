@@ -8,7 +8,7 @@ pipeline {
 //    DEPLOY = 'YES'
 //}
     parameters {
-      choice choices: ['apply', 'destroy'], description: 'Humayun?', name: 'TERRAFOM-BUILD'
+      choice choices: ['apply', 'destroy'], description: 'Action to be taken on the Terraform configuration', name: 'action'
     }
 
     stages {
@@ -57,7 +57,7 @@ pipeline {
 
         stage ("ansible test") {
           when {
-            expression { params.TERRAFOM-BUILD == 'apply' }
+            expression { params.action == 'apply' }
           }
           steps {
             sh 'ansible-playbook first_playbook.yml -i ansible/inventory.yml -u jenkins'
