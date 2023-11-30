@@ -26,6 +26,9 @@ pipeline {
         }
 
         stage ('Build') {
+          when {
+            expression { params.action == 'apply' }
+          }          
           steps {
             sh 'mvn clean package'
           }
