@@ -4,9 +4,6 @@ pipeline {
       maven 'maven'
     }
 
-//    environment {
-//    DEPLOY = 'YES'
-//}
     parameters {
       choice choices: ['apply', 'destroy'], description: 'Action to be taken on the Terraform configuration', name: 'action'
     }
@@ -43,25 +40,17 @@ pipeline {
         stage ("terraform Action") {
 //            when ${BRANCH_NAME} == 'main'
             steps {
-                echo "Terraform action is --> \$action"
+                echo "Terraform action is --> {$action}"
                 sh 'terraform ${action} --auto-approve'
-//                sh ('terraform destroy --auto-approve') 
            }
         }
 
-//        stage ("Ansible deploy") {
-//            steps {
-//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
-//       }    
-//     }
-
-        stage ("ansible test") {
+        stage ("Ansible deploy") {
           when {
             expression { params.action == 'apply' }
-          }
-          steps {
-            sh 'ansible-playbook first_playbook.yml -i ansible/inventory.yml -u jenkins'
-          }
-        }
+            steps {
+              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'
+       }    
+     }
   }
 }
