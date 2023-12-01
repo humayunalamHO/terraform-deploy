@@ -1,32 +1,27 @@
-23/09/06540
+//Ansible setup
+Install Ansible on Jenkins server
+Use jenkins user for ssh
+add to sudoers file: jenkins ALL=(ALL) NOPASSWD:ALL
+Create ssh key for jenkins
+Create pub_key variable for jenkins user in variable.tf
 
-16504751
-
-//Ansible server
-useradd ansadmin
-add to sudoers file: ansadmin ALL=(ALL)       NOPASSWD: ALL
-
-Enable password-based login
-grep Password /etc/ssh/sshd_config
-
-
-yum install python3 -y
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3 get-pip.py --user
-python3 -m pip install --user ansible
-
-mkdir -p /etc/ansible
-cd mkdir -p /etc/ansible
-touch hosts
-
-ansible all -m ping
-
-
-add ssh login in Jenkins publish over ssh for ansible and for prod servers
-
-
-//Install Ansible again
+//Install Ansible in Redhat OS
 sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
 sudo dnf install \
 https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 sudo yum install ansible
+
+//On the web server do the following on the instance
+
+  user_data = <<-EOF
+    #!/bin/bash
+    yum intall -y vim
+    useradd jenkins
+    echo "jenkins ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+    mkdir /home/jenkins/.ssh
+    touch /home/jenkins/.ssh/authorized_keys
+    echo "${var.MY_USER_PUBLIC_KEY}" >> /home/jenkins/.ssh/authorized_keys
+    chown -R jenkins:jenkins /home/jenkins/.ssh
+    chmod 700 /home/jenkins/.ssh
+    chmod 600 /home/jenkins/.ssh/authorized_keys
+    EOF

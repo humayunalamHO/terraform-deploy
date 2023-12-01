@@ -9,6 +9,7 @@ resource "aws_vpc" "vpc" {
   }
 }
 
+//Create vpc peering connection with VPC of the Jenkins server
 resource "aws_vpc_peering_connection" "vpc" {
   peer_owner_id = 946334840080
   peer_vpc_id   = aws_vpc.vpc.id
@@ -46,9 +47,9 @@ resource "aws_route_table" "public-route-table" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet-gateway.id
   }
-
+//adding the route for the vpc peering connection
   route {
-    cidr_block = "172.31.0.0/16"
+    cidr_block = "172.31.0.0/16" //Jenkins network CIDR block
     vpc_peering_connection_id = aws_vpc_peering_connection.vpc.id
   }
   
@@ -74,7 +75,7 @@ resource "aws_subnet" "private-subnet-1" {
   }
 }
 
-# Create Security Group for the Bastion Host aka Jump Box
+# Create Security Group
 # terraform aws create security group
 resource "aws_security_group" "ssh-security-group" {
   name        = "SSH Security Group"
@@ -89,7 +90,7 @@ resource "aws_security_group" "ssh-security-group" {
     
   }
  ingress {
-    description = "SSH Access"
+    description = "http"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -97,7 +98,7 @@ resource "aws_security_group" "ssh-security-group" {
  }
 
   ingress {
-    description = "SSH Access"
+    description = "https"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -105,7 +106,7 @@ resource "aws_security_group" "ssh-security-group" {
  } 
 
   ingress {
-    description = "SSH Access"
+    description = "webserver for tomcat"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -130,13 +131,14 @@ resource "aws_security_group" "ssh-security-group" {
     Name = "Devops-SSH Security Group"
   }
 }
-
+// adding route for jenkins network vpc peering
 resource aws_route "centos_jenkins" {
-  route_table_id = 	"rtb-0e82b770" //"${aws_route_table.centos-jenkins-rt.id}"
+  route_table_id = 	"rtb-0e82b770"
   destination_cidr_block = "10.0.0.0/16"
   vpc_peering_connection_id = aws_vpc_peering_connection.vpc.id
 }
 
+//Create private hosted zone
 resource "aws_route53_zone" "devops" {
   name = "devops.local"
   tags = {
@@ -151,6 +153,7 @@ resource "aws_route53_zone" "devops" {
   }
 }
 
+//create private DNS record
 resource "aws_route53_record" "prod1" {
   zone_id = aws_route53_zone.devops.zone_id
   name    = "prod1.devops.local"
