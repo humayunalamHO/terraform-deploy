@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-      aws_credential = "AWS_CREDNETIAL_ID"
+      aws_credential = "AWS_CREDENTIAL_ID"
       bucket = "my-artifacts-devops"
       region = "us-east-1"
     }
