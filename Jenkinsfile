@@ -65,7 +65,7 @@ pipeline {
           steps {
             withAWS(region:"${region}",
             credentials:"${aws_credential}") {
-                s3Upload(file:"target/*.war", bucket:"${bucket}",
+                s3Upload(file:"target/helloworld.war", bucket:"${bucket}",
                 path:"dir1/")
             }
           }
