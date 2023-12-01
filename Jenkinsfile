@@ -38,29 +38,29 @@ pipeline {
             sh 'mvn clean package'
           }
         }        
-        stage ("terraform init") {
-//            when ${BRANCH_NAME} == 'main'
-            steps {
-                sh 'terraform init' 
-            }
-        }
-        
-        stage ("terraform Action") {
-//            when ${BRANCH_NAME} == 'main'
-            steps {
-                echo "Terraform action is --> {$action}"
-                sh 'terraform ${action} --auto-approve'
-           }
-        }
-
-        stage ("Ansible deploy") {
-          when {
-            expression { params.action == 'apply' }
-          }
-            steps {
-              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
-       }    
-     }
+//        stage ("terraform init") {
+////            when ${BRANCH_NAME} == 'main'
+//            steps {
+//                sh 'terraform init' 
+//            }
+//        }
+//        
+//        stage ("terraform Action") {
+////            when ${BRANCH_NAME} == 'main'
+//            steps {
+//                echo "Terraform action is --> {$action}"
+//                sh 'terraform ${action} --auto-approve'
+//           }
+//        }
+//
+//        stage ("Ansible deploy") {
+//          when {
+//            expression { params.action == 'apply' }
+//          }
+//            steps {
+//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
+//       }    
+//     }
         stage ("Upload") {
            when {
             expression { params.action == 'apply' }
