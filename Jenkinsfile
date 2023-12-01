@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
       aws_credential = "AWS_CREDENTIAL_ID"
-      bucket = "my-artifacts-devops"
+      bucket = "my-artifact-upload"
       region = "us-east-1"
     }
     tools {

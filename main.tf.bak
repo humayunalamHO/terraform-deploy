@@ -45,3 +45,14 @@ resource "aws_instance" "ec2_prod" {
     chmod 600 /home/jenkins/.ssh/authorized_keys
     EOF
 }
+
+//Create s3 bucket
+resource "aws_s3_bucket" "example" {
+  bucket = "my-artifact-upload"
+  region = var.aws_region
+
+  tags = {
+    Name        = "DevOps_bucket"
+    Environment = "Dev"
+  }
+}
