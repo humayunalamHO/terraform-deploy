@@ -10,7 +10,7 @@ pipeline {
     }
 
     parameters {
-      choice choices: ['apply', 'destroy'], description: 'Action to be taken on the Terraform configuration', name: 'action'
+      choice choices: ['apply', 'destroy', 'plan'], description: 'Action to be taken on the Terraform configuration', name: 'action'
     }
 
     stages {
