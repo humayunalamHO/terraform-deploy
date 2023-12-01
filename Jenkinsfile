@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+      aws_credential = "AWS_CREDNETIAL_ID"
+      bucket = "my-artifacts-devops"
+      region = "us-east-1"
+    }
     tools {
       maven 'maven'
     }
@@ -56,6 +61,16 @@ pipeline {
               sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
        }    
      }
+        stage ("Upload") {
+          steps {
+            withAWS(region:"${region}",
+            credentials:${aws_credential}) {
+                s3Upload(file:"myfirstupload", bucket:"${bucket}",
+                path:"dir1/")
+            }
+          }
+        }
+        
   }
 }
 
