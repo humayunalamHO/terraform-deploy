@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/s3']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/humayunalamHO/terraform-deploy.git']]])            
+            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/humayunalamHO/terraform-deploy.git']]])            
 
           }
         }
@@ -53,14 +53,14 @@ pipeline {
            }
         }
 
-//        stage ("Ansible deploy") {
-//          when {
-//            expression { params.action == 'apply' }
-//          }
-//            steps {
-//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
-//       }    
-//     }
+        stage ("Ansible deploy") {
+          when {
+            expression { params.action == 'apply' }
+          }
+            steps {
+              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
+       }    
+     }
         stage ("Upload") {
            when {
             expression { params.action == 'apply' }
