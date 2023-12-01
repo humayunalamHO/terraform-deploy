@@ -47,9 +47,9 @@ resource "aws_instance" "ec2_prod" {
 }
 
 //Create s3 bucket
-resource "aws_s3_bucket" "example" {
+resource "aws_s3_bucket" "s3-dev" {
   bucket = "my-artifact-upload"
-  region = var.aws_region
+  force_destroy = true
 
   tags = {
     Name        = "DevOps_bucket"
