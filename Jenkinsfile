@@ -62,6 +62,9 @@ pipeline {
        }    
      }
         stage ("Upload") {
+           when {
+            expression { params.action == 'apply' }
+          }
           steps {
             withAWS(region:"${region}",
             credentials:"${aws_credential}") {
