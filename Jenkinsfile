@@ -38,21 +38,21 @@ pipeline {
             sh 'mvn clean package'
           }
         }        
-//        stage ("terraform init") {
-////            when ${BRANCH_NAME} == 'main'
-//            steps {
-//                sh 'terraform init' 
-//            }
-//        }
-//        
-//        stage ("terraform Action") {
-////            when ${BRANCH_NAME} == 'main'
-//            steps {
-//                echo "Terraform action is --> {$action}"
-//                sh 'terraform ${action} --auto-approve'
-//           }
-//        }
-//
+        stage ("terraform init") {
+//            when ${BRANCH_NAME} == 'main'
+            steps {
+                sh 'terraform init' 
+            }
+        }
+        
+        stage ("terraform Action") {
+//            when ${BRANCH_NAME} == 'main'
+            steps {
+                echo "Terraform action is --> {$action}"
+                sh 'terraform ${action} --auto-approve'
+           }
+        }
+
 //        stage ("Ansible deploy") {
 //          when {
 //            expression { params.action == 'apply' }
