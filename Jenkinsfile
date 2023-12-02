@@ -53,14 +53,14 @@ pipeline {
            }
         }
 
-//        stage ("Ansible deploy") {
-//          when {
-//            expression { params.action == 'apply' }
-//          }
-//            steps {
-//              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
-//       }    
-//     }
+        stage ("Ansible deploy") {
+          when {
+            expression { params.action == 'apply' }
+          }
+            steps {
+              sh 'ansible-playbook ansible/tomcat-setup.yml -i ansible/inventory.yml -u jenkins'           
+       }    
+     }
         stage ("Upload") {
            when {
             expression { params.action == 'apply' }
